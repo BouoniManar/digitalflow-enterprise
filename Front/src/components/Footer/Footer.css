@@ -1,0 +1,213 @@
+/* Footer.css - Styles personnalisés avec fond clair et animation du logo */
+
+.custom-footer {
+  background-color: #f1f5f9; /* Fond gris très clair / blanc cassé */
+  color: #334155;            /* Texte gris foncé général */
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid #e2e8f0; /* Bordure douce */
+  font-family: inherit;
+}
+
+.footer-container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .footer-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Grille principale */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Colonnes individuelles */
+.footer-col-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* --- ANIMATION DU LOGO --- */
+/* Logo agrandi avec animation d'apparition et effet au survol */
+.footer-logo-img {
+  height: 3.5rem; /* Augmenté de 2.5rem à 3.5rem pour qu'il soit plus grand et visible */
+  width: auto;
+  object-fit: contain;
+  animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: transform 0.3s ease, filter 0.3s ease; /* Transition fluide pour la souris */
+}
+
+/* Effet au survol de la souris sur le logo */
+.footer-logo-img:hover {
+  transform: scale(1.08); /* Effet de zoom quand la souris se pose dessus */
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); /* Légère ombre portée élégante */
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ------------------------ */
+
+.footer-brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.025em;
+}
+
+.footer-description {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Titres des sections */
+.footer-title {
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-left: 3px solid #0284c7; /* Accent bleu élégant */
+  padding-left: 0.75rem;
+  line-height: 1.2;
+}
+
+/* Listes de liens */
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-link {
+  font-size: 0.875rem;
+  color: #475569;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #0284c7;
+  transform: translateX(3px);
+}
+
+/* Contacts spécifiques */
+.footer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #475569;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-contact-item:hover {
+  color: #0284c7;
+}
+
+.footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #16a34a; /* Vert WhatsApp bien visible sur fond clair */
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding-top: 0.25rem;
+}
+
+.footer-whatsapp:hover {
+  color: #15803d;
+}
+
+/* Bas de page / Copyright */
+.footer-bottom {
+  padding-top: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: #64748b;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+  }
+}
+
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-legal-link {
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-link:hover {
+  color: #0f172a;
+}
+
+.footer-dot {
+  color: #cbd5e1;
+}

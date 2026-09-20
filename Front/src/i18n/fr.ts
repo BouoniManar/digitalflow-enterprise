@@ -11,9 +11,9 @@ export const fr: Translation = {
 
 hero: {
   badge: 'Approuvé par les entreprises internationales',
-  title1: 'Votre Partenaire Stratégique pour',
-  title2: 'la Croissance',
-  title3: '& l\'Excellence Digitale',
+  title1: 'Accélérez votre transformation digitale',
+  title2: 'avec des solutions logicielles',
+  title3: 'innovantes et performantes.',
   subtitle: 'Des études de faisabilité et du conseil en projets à la digitalisation, l\'optimisation des processus & l\'automatisation — nous vous accompagnons à chaque étape.',
   primaryButton: 'Consultation initiale gratuite',
   cta2: 'Découvrir les Services',

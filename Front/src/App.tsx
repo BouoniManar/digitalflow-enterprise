@@ -12,7 +12,6 @@ import CTA from './components/CTA'
 function App() {
   const { lang, setLang, isRTL } = useTranslation()
 
-
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window === 'undefined') return false
     const saved = localStorage.getItem('theme')
@@ -33,40 +32,36 @@ function App() {
   }, [darkMode])
 
   return (
-   <div
-  dir={isRTL ? 'rtl' : 'ltr'}
-  className="
-    min-h-screen flex flex-col
-    text-slate-900 dark:text-white
-    transition-colors duration-500
+    <div
+      dir={isRTL ? 'rtl' : 'ltr'}
+      className="
+        min-h-screen flex flex-col
+        text-slate-900 dark:text-white
+        transition-colors duration-500
 
-    bg-gradient-to-b
-    from-[#CBE6FF]
-    via-[#E6F2FF]
-    to-[#FFFFFF]
+        bg-gradient-to-b
+        from-[#CBE6FF]
+        via-[#E6F2FF]
+        to-[#FFFFFF]
 
-    dark:from-[#07111f]
-    dark:via-[#06101a]
-    dark:to-[#02060c]
-  "
->
+        dark:from-[#07111f]
+        dark:via-[#06101a]
+        dark:to-[#02060c]
+      "
+    >
       <Navbar
         lang={lang}
         setLang={setLang}
         darkMode={darkMode}
         setDarkMode={setDarkMode}
       />
-      <Hero lang={lang} />
-      <About lang={lang} />
-      <Services lang={lang} />
-      <WhyOperyx lang={lang} />
-      
-      <Contact lang={lang} />
-
-      <CTA lang={lang} />
-      
-
-      <Footer lang={lang} />
+      <Hero lang={lang} darkMode={darkMode} />
+      <About lang={lang} darkMode={darkMode} />
+      <Services lang={lang} darkMode={darkMode} />
+      <WhyOperyx lang={lang} darkMode={darkMode} />
+      <Contact lang={lang} darkMode={darkMode} />
+      <CTA lang={lang} darkMode={darkMode} />
+      <Footer lang={lang} darkMode={darkMode} />
     </div>
   )
 }

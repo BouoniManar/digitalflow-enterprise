@@ -4,16 +4,16 @@ export const en: Translation = {
   nav: {
     about: 'About us',
     services: 'Services',
-    why: 'Why Operyx',
+    why: 'Why DigitalFlow',
     contact: 'Contact',
     cta: 'Get in Touch',
   },
 
   hero: {
   badge: 'Trusted by International Enterprises',
-  title1: 'Your Strategic Partner for',
-  title2: 'Business Growth',
-  title3: '& Digital Excellence',
+  title1: 'Accelerate your digital transformation',
+  title2: 'with innovative &',
+  title3: 'high-performance software solutions.',
   subtitle: 'From feasibility studies and project consulting to digitalization, process optimization & automation — we accompany you at every stage.',
    primaryButton: 'Free initial consultation',
   cta2: 'Discover Services',

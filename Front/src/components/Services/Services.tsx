@@ -16,6 +16,7 @@ import { translations, type Locale } from '../../i18n'
 
 interface ServicesProps {
   lang: Locale
+  darkMode: boolean
 }
 
 function useInView(threshold = 0.12) {
@@ -37,7 +38,7 @@ function useInView(threshold = 0.12) {
   return { ref, inView }
 }
 
-export default function Services({ lang }: ServicesProps) {
+export default function Services({ lang, darkMode }: ServicesProps) {
   const isRTL = lang === 'ar'
   const { ref, inView } = useInView()
   const t = translations[lang].services
@@ -51,28 +52,37 @@ export default function Services({ lang }: ServicesProps) {
       style={{
         position: 'relative',
         padding: '110px 0',
-        background: 'linear-gradient(to bottom, #BFE0FF, #EAF4FF, #FFFFFF)',
+        background: darkMode
+          ? 'linear-gradient(to bottom, #020617, #090d16, #020617)'
+          : 'linear-gradient(to bottom, #BFE0FF, #EAF4FF, #FFFFFF)',
         overflow: 'hidden',
+        transition: 'background 0.5s ease',
       }}
     >
       {/* ── Background blobs ── */}
       <div style={{
         position: 'absolute', top: -200, right: -200,
         width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(0,102,255,.07) 0%, transparent 70%)',
+        background: darkMode
+          ? 'radial-gradient(circle, rgba(0,102,255,.12) 0%, transparent 70%)'
+          : 'radial-gradient(circle, rgba(0,102,255,.07) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
       <div style={{
         position: 'absolute', bottom: -160, left: -140,
         width: 400, height: 400, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(59,130,246,.06) 0%, transparent 70%)',
+        background: darkMode
+          ? 'radial-gradient(circle, rgba(59,130,246,.10) 0%, transparent 70%)'
+          : 'radial-gradient(circle, rgba(59,130,246,.06) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
       {/* ── Top border ── */}
       <div style={{
         position: 'absolute', top: 0, left: '8%', right: '8%', height: 1,
-        background: 'linear-gradient(to right, transparent, rgba(0,102,255,.22), transparent)',
+        background: darkMode
+          ? 'linear-gradient(to right, transparent, rgba(56,189,248,.25), transparent)'
+          : 'linear-gradient(to right, transparent, rgba(0,102,255,.22), transparent)',
       }} />
 
       <div
@@ -94,15 +104,16 @@ export default function Services({ lang }: ServicesProps) {
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '6px 18px', borderRadius: 999,
-            border: '1px solid rgba(0,102,255,.22)',
-            background: 'rgba(0,102,255,.07)',
+            border: darkMode ? '1px solid rgba(56,189,248,.3)' : '1px solid rgba(0,102,255,.22)',
+            background: darkMode ? 'rgba(56,189,248,.1)' : 'rgba(0,102,255,.07)',
             marginBottom: 24,
           }}>
             <div style={{
               width: 6, height: 6, borderRadius: '50%',
-              background: '#0066FF', boxShadow: '0 0 8px rgba(0,102,255,.8)',
+              background: darkMode ? '#38bdf8' : '#0066FF',
+              boxShadow: darkMode ? '0 0 8px rgba(56,189,248,.8)' : '0 0 8px rgba(0,102,255,.8)',
             }} />
-            <span style={{ color: '#0055CC', fontSize: 12, fontWeight: 600, letterSpacing: '.08em' }}>
+            <span style={{ color: darkMode ? '#38bdf8' : '#0055CC', fontSize: 12, fontWeight: 600, letterSpacing: '.08em' }}>
               {t.label}
             </span>
           </div>
@@ -114,7 +125,7 @@ export default function Services({ lang }: ServicesProps) {
             fontWeight: 600,
             lineHeight: 1.3,
             letterSpacing: 'normal',
-            color: '#0F172A',
+            color: darkMode ? '#F8FAFC' : '#0F172A',
             marginBottom: 18,
           }}>
             {t.title}
@@ -122,13 +133,13 @@ export default function Services({ lang }: ServicesProps) {
 
           {/* Subtitle */}
           <p style={{
-            color: '#64748B',
+            color: darkMode ? '#94A3B8' : '#64748B',
             fontFamily: "'Inter', sans-serif",
             fontSize: '1.05rem',
             fontWeight: 400,
             lineHeight: 1.75,
             letterSpacing: 'normal',
-                      }}>
+          }}>
             {t.subtitle}
           </p>
         </div>
@@ -149,33 +160,35 @@ export default function Services({ lang }: ServicesProps) {
                   position: 'relative',
                   padding: '32px 28px',
                   borderRadius: 20,
-                  background: '#ffffff',
-                  border: '1px solid rgba(0,102,255,.09)',
-                  boxShadow: '0 2px 16px rgba(0,0,0,.04)',
+                  background: darkMode ? '#0f172a' : '#ffffff',
+                  border: darkMode ? '1px solid rgba(56,189,248,.15)' : '1px solid rgba(0,102,255,.09)',
+                  boxShadow: darkMode ? '0 2px 16px rgba(0,0,0,.3)' : '0 2px 16px rgba(0,0,0,.04)',
                   overflow: 'hidden',
                   opacity: inView ? 1 : 0,
                   transform: inView ? 'translateY(0)' : 'translateY(22px)',
-                  transition: `opacity .5s ease ${index * 80}ms, transform .5s ease ${index * 80}ms, box-shadow .25s ease, border-color .25s ease`,
+                  transition: `opacity .5s ease ${index * 80}ms, transform .5s ease ${index * 80}ms, box-shadow .25s ease, border-color .25s ease, background .5s ease`,
                   cursor: 'default',
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLElement
                   el.style.transform = 'translateY(-6px)'
-                  el.style.borderColor = 'rgba(0,102,255,.28)'
-                  el.style.boxShadow = '0 16px 48px rgba(0,102,255,.10)'
+                  el.style.borderColor = darkMode ? 'rgba(56,189,248,.4)' : 'rgba(0,102,255,.28)'
+                  el.style.boxShadow = darkMode ? '0 16px 48px rgba(56,189,248,.15)' : '0 16px 48px rgba(0,102,255,.10)'
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget as HTMLElement
                   el.style.transform = 'translateY(0)'
-                  el.style.borderColor = 'rgba(0,102,255,.09)'
-                  el.style.boxShadow = '0 2px 16px rgba(0,0,0,.04)'
+                  el.style.borderColor = darkMode ? 'rgba(56,189,248,.15)' : 'rgba(0,102,255,.09)'
+                  el.style.boxShadow = darkMode ? '0 2px 16px rgba(0,0,0,.3)' : '0 2px 16px rgba(0,0,0,.04)'
                 }}
               >
                 {/* Corner glow */}
                 <div style={{
                   position: 'absolute', top: -40, right: -40,
                   width: 110, height: 110, borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(0,102,255,.06) 0%, transparent 70%)',
+                  background: darkMode
+                    ? 'radial-gradient(circle, rgba(56,189,248,.1) 0%, transparent 70%)'
+                    : 'radial-gradient(circle, rgba(0,102,255,.06) 0%, transparent 70%)',
                   pointerEvents: 'none',
                 }} />
 
@@ -184,15 +197,17 @@ export default function Services({ lang }: ServicesProps) {
                   width: 52, height: 52, borderRadius: 14,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   marginBottom: 20,
-                  background: 'linear-gradient(135deg, rgba(0,102,255,.10), rgba(59,130,246,.05))',
-                  border: '1px solid rgba(0,102,255,.16)',
+                  background: darkMode
+                    ? 'linear-gradient(135deg, rgba(56,189,248,.15), rgba(59,130,246,.08))'
+                    : 'linear-gradient(135deg, rgba(0,102,255,.10), rgba(59,130,246,.05))',
+                  border: darkMode ? '1px solid rgba(56,189,248,.25)' : '1px solid rgba(0,102,255,.16)',
                 }}>
-                  <Icon size={24} color="#0066FF" />
+                  <Icon size={24} color={darkMode ? '#38bdf8' : '#0066FF'} />
                 </div>
 
                 {/* Title */}
                 <h3 style={{
-                  color: '#0F172A',
+                  color: darkMode ? '#F8FAFC' : '#0F172A',
                   fontFamily: "'Inter', sans-serif",
                   fontSize: '1.2rem',
                   fontWeight: 600,
@@ -205,7 +220,7 @@ export default function Services({ lang }: ServicesProps) {
 
                 {/* Desc */}
                 <p style={{
-                  color: '#64748B',
+                  color: darkMode ? '#94A3B8' : '#64748B',
                   fontFamily: "'Inter', sans-serif",
                   fontSize: '0.98rem',
                   fontWeight: 400,
@@ -225,19 +240,23 @@ export default function Services({ lang }: ServicesProps) {
           borderRadius: 28,
           padding: '52px 48px',
           overflow: 'hidden',
-          background: 'linear-gradient(135deg, #EEF4FF 0%, #F0F7FF 50%, #ffffff 100%)',
-          border: '1px solid rgba(0,102,255,.14)',
-          boxShadow: '0 4px 40px rgba(0,102,255,.07)',
+          background: darkMode
+            ? 'linear-gradient(135deg, #0b1329 0%, #090d16 50%, #020617 100%)'
+            : 'linear-gradient(135deg, #EEF4FF 0%, #F0F7FF 50%, #ffffff 100%)',
+          border: darkMode ? '1px solid rgba(56,189,248,.2)' : '1px solid rgba(0,102,255,.14)',
+          boxShadow: darkMode ? '0 4px 40px rgba(0,0,0,.4)' : '0 4px 40px rgba(0,102,255,.07)',
           opacity: inView ? 1 : 0,
           transform: inView ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity .7s ease 320ms, transform .7s ease 320ms',
+          transition: 'opacity .7s ease 320ms, transform .7s ease 320ms, background .5s ease, border-color .5s ease',
         }}>
 
           {/* Blob inside */}
           <div style={{
             position: 'absolute', top: -60, right: -60,
             width: 260, height: 260, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(0,102,255,.08) 0%, transparent 70%)',
+            background: darkMode
+              ? 'radial-gradient(circle, rgba(56,189,248,.12) 0%, transparent 70%)'
+              : 'radial-gradient(circle, rgba(0,102,255,.08) 0%, transparent 70%)',
             pointerEvents: 'none',
           }} />
 
@@ -251,21 +270,21 @@ export default function Services({ lang }: ServicesProps) {
 
             {/* Left — text + CTA */}
             <div>
-            <h3
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: 'clamp(1.7rem, 2.2vw, 2rem)',
-              fontWeight: 600,
-              lineHeight: 1.4,
-              letterSpacing: 'normal',
-              color: '#1E293B',
-              marginBottom: 18,
-            }}
-          >
-            {t.supportTitle}
-          </h3>
+              <h3
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: 'clamp(1.7rem, 2.2vw, 2rem)',
+                  fontWeight: 600,
+                  lineHeight: 1.4,
+                  letterSpacing: 'normal',
+                  color: darkMode ? '#F8FAFC' : '#1E293B',
+                  marginBottom: 18,
+                }}
+              >
+                {t.supportTitle}
+              </h3>
               <p style={{
-                color: '#475569',
+                color: darkMode ? '#94A3B8' : '#475569',
                 fontFamily: "'Inter', sans-serif",
                 fontSize: '1rem',
                 fontWeight: 400,
@@ -281,22 +300,23 @@ export default function Services({ lang }: ServicesProps) {
                   display: 'inline-flex', alignItems: 'center', gap: 10,
                   padding: '13px 26px', borderRadius: 12,
                   textDecoration: 'none',
-                  background: '#0066FF', color: '#fff',
+                  background: darkMode ? '#38bdf8' : '#0066FF', 
+                  color: darkMode ? '#020617' : '#fff',
                   fontWeight: 600, fontSize: '.92rem',
-                  boxShadow: '0 4px 22px rgba(0,102,255,.28)',
+                  boxShadow: darkMode ? '0 4px 22px rgba(56,189,248,.3)' : '0 4px 22px rgba(0,102,255,.28)',
                   transition: 'all .25s ease',
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLElement
-                  el.style.background = '#0052CC'
+                  el.style.background = darkMode ? '#7dd3fc' : '#0052CC'
                   el.style.transform = 'translateY(-2px)'
-                  el.style.boxShadow = '0 8px 32px rgba(0,102,255,.40)'
+                  el.style.boxShadow = darkMode ? '0 8px 32px rgba(56,189,248,.45)' : '0 8px 32px rgba(0,102,255,.40)'
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget as HTMLElement
-                  el.style.background = '#0066FF'
+                  el.style.background = darkMode ? '#38bdf8' : '#0066FF'
                   el.style.transform = 'translateY(0)'
-                  el.style.boxShadow = '0 4px 22px rgba(0,102,255,.28)'
+                  el.style.boxShadow = darkMode ? '0 4px 22px rgba(56,189,248,.3)' : '0 4px 22px rgba(0,102,255,.28)'
                 }}
               >
                 {t.cta}
@@ -310,19 +330,19 @@ export default function Services({ lang }: ServicesProps) {
                 <div key={i} style={{
                   display: 'flex', alignItems: 'center', gap: 14,
                   padding: '16px 20px', borderRadius: 14,
-                  background: '#ffffff',
-                  border: '1px solid rgba(0,102,255,.10)',
-                  boxShadow: '0 2px 10px rgba(0,0,0,.04)',
+                  background: darkMode ? '#0f172a' : '#ffffff',
+                  border: darkMode ? '1px solid rgba(56,189,248,.15)' : '1px solid rgba(0,102,255,.10)',
+                  boxShadow: darkMode ? '0 2px 10px rgba(0,0,0,.2)' : '0 2px 10px rgba(0,0,0,.04)',
                 }}>
                   <div style={{
                     width: 40, height: 40, borderRadius: 12, flexShrink: 0,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    background: 'rgba(0,102,255,.08)',
-                    border: '1px solid rgba(0,102,255,.14)',
+                    background: darkMode ? 'rgba(56,189,248,.15)' : 'rgba(0,102,255,.08)',
+                    border: darkMode ? '1px solid rgba(56,189,248,.25)' : '1px solid rgba(0,102,255,.14)',
                   }}>
-                    <CheckCircle2 size={18} color="#0066FF" />
+                    <CheckCircle2 size={18} color={darkMode ? '#38bdf8' : '#0066FF'} />
                   </div>
-                  <span style={{ color: '#1E293B', fontWeight: 500, fontSize: '.95rem' }}>
+                  <span style={{ color: darkMode ? '#F8FAFC' : '#1E293B', fontWeight: 500, fontSize: '.95rem' }}>
                     {item}
                   </span>
                 </div>

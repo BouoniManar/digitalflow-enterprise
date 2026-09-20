@@ -5,10 +5,11 @@ import { translations, type Locale } from '../i18n'
 
 interface CTAProps {
   lang: Locale
+  darkMode?: boolean
 }
 
-export default function CTA({ lang }: CTAProps) {
-  const t = translations[lang].cta
+export default function CTA({ lang, darkMode = false }: CTAProps) {
+  const t = translations[lang]?.cta || translations['fr'].cta
   const isRTL = lang === 'ar'
 
   return (
@@ -17,11 +18,13 @@ export default function CTA({ lang }: CTAProps) {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(135deg, #BFE0FF 0%, #EAF4FF 50%, #FFFFFF 100%)',
-        padding: '80px 24px',
+        background: darkMode
+          ? 'linear-gradient(to bottom, #020617, #090d16, #020617)'
+          : 'linear-gradient(135deg, #BFE0FF 0%, #EAF4FF 50%, #FFFFFF 100%)',
+        padding: '100px 24px 80px 24px',
+        transition: 'background 0.5s ease',
       }}
     >
-
       {/* ── Top border ── */}
       <div
         style={{
@@ -30,8 +33,9 @@ export default function CTA({ lang }: CTAProps) {
           left: '8%',
           right: '8%',
           height: 1,
-          background:
-            'linear-gradient(to right, transparent, rgba(0,119,255,.30), transparent)',
+          background: darkMode
+            ? 'linear-gradient(to right, transparent, rgba(56,189,248,.25), transparent)'
+            : 'linear-gradient(to right, transparent, rgba(0,119,255,.30), transparent)',
         }}
       />
 
@@ -46,8 +50,9 @@ export default function CTA({ lang }: CTAProps) {
           width: 500,
           height: 500,
           borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(0,119,255,.08) 0%, transparent 65%)',
+          background: darkMode
+            ? 'radial-gradient(circle, rgba(56,189,248,.05) 0%, transparent 65%)'
+            : 'radial-gradient(circle, rgba(0,119,255,.08) 0%, transparent 65%)',
         }}
       />
       <div
@@ -59,8 +64,9 @@ export default function CTA({ lang }: CTAProps) {
           width: 360,
           height: 360,
           borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(99,179,255,.10) 0%, transparent 70%)',
+          background: darkMode
+            ? 'radial-gradient(circle, rgba(56,189,248,.07) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(99,179,255,.10) 0%, transparent 70%)',
         }}
       />
 
@@ -71,15 +77,20 @@ export default function CTA({ lang }: CTAProps) {
             position: 'relative',
             overflow: 'hidden',
             borderRadius: 32,
-            border: '1px solid rgba(0,119,255,.18)',
-            background:
-              'linear-gradient(135deg, #E6F2FF 0%, #F3F8FF 50%, #FFFFFF 100%)',
+            border: darkMode
+              ? '1px solid rgba(56,189,248,.15)'
+              : '1px solid rgba(0,119,255,.18)',
+            background: darkMode
+              ? '#0f172a'
+              : 'linear-gradient(135deg, #E6F2FF 0%, #F3F8FF 50%, #FFFFFF 100%)',
             padding: '72px 56px',
-            boxShadow: '0 10px 70px rgba(0,119,255,.12)',
+            boxShadow: darkMode
+              ? '0 2px 16px rgba(0,0,0,.3)'
+              : '0 10px 70px rgba(0,119,255,.12)',
             textAlign: 'center',
+            transition: 'background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease',
           }}
         >
-
           {/* Top line */}
           <div
             style={{
@@ -88,8 +99,9 @@ export default function CTA({ lang }: CTAProps) {
               left: 0,
               right: 0,
               height: 1,
-              background:
-                'linear-gradient(to right, transparent, rgba(0,119,255,.35), transparent)',
+              background: darkMode
+                ? 'linear-gradient(to right, transparent, rgba(56,189,248,.3), transparent)'
+                : 'linear-gradient(to right, transparent, rgba(0,119,255,.35), transparent)',
             }}
           />
 
@@ -104,13 +116,13 @@ export default function CTA({ lang }: CTAProps) {
               width: 320,
               height: 320,
               borderRadius: '50%',
-              background:
-                'radial-gradient(circle, rgba(0,119,255,.07) 0%, transparent 70%)',
+              background: darkMode
+                ? 'radial-gradient(circle, rgba(56,189,248,.08) 0%, transparent 70%)'
+                : 'radial-gradient(circle, rgba(0,119,255,.07) 0%, transparent 70%)',
             }}
           />
 
           <div style={{ position: 'relative', zIndex: 10 }}>
-
             {/* ── BADGE ── */}
             <div
               style={{
@@ -119,8 +131,12 @@ export default function CTA({ lang }: CTAProps) {
                 gap: 8,
                 padding: '8px 20px',
                 borderRadius: 999,
-                border: '1px solid rgba(0,119,255,.25)',
-                background: 'rgba(0,119,255,.08)',
+                border: darkMode
+                  ? '1px solid rgba(56,189,248,.3)'
+                  : '1px solid rgba(0,119,255,.25)',
+                background: darkMode
+                  ? 'rgba(56,189,248,.1)'
+                  : 'rgba(0,119,255,.08)',
                 marginBottom: 32,
               }}
             >
@@ -130,12 +146,21 @@ export default function CTA({ lang }: CTAProps) {
                   width: 8,
                   height: 8,
                   borderRadius: '50%',
-                  background:
-                    'radial-gradient(circle, rgba(0,119,255,.9) 0%, rgba(0,119,255,.2) 70%)',
-                  boxShadow: '0 0 10px rgba(0,119,255,.5)',
+                  background: darkMode
+                    ? 'radial-gradient(circle, rgba(56,189,248,.9) 0%, rgba(56,189,248,.2) 70%)'
+                    : 'radial-gradient(circle, rgba(0,119,255,.9) 0%, rgba(0,119,255,.2) 70%)',
+                  boxShadow: darkMode
+                    ? '0 0 10px rgba(56,189,248,.5)'
+                    : '0 0 10px rgba(0,119,255,.5)',
                 }}
               />
-              <span style={{ color: '#1D4ED8', fontSize: '0.85rem', fontWeight: 600 }}>
+              <span
+                style={{
+                  color: darkMode ? '#38bdf8' : '#1D4ED8',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                }}
+              >
                 {t.badge}
               </span>
             </div>
@@ -148,7 +173,7 @@ export default function CTA({ lang }: CTAProps) {
                 fontWeight: 700,
                 lineHeight: 1.15,
                 letterSpacing: '-0.03em',
-                color: '#0F172A',
+                color: darkMode ? '#F8FAFC' : '#0F172A',
                 maxWidth: 680,
                 margin: '0 auto 20px',
               }}
@@ -163,7 +188,7 @@ export default function CTA({ lang }: CTAProps) {
                 margin: '0 auto 44px',
                 fontSize: '1rem',
                 lineHeight: 1.9,
-                color: '#64748B',
+                color: darkMode ? '#94A3B8' : '#64748B',
               }}
             >
               {t.subtitle}
@@ -178,7 +203,6 @@ export default function CTA({ lang }: CTAProps) {
                 justifyContent: 'center',
               }}
             >
-
               {/* Primary */}
               <a
                 href="#contact"
@@ -188,24 +212,32 @@ export default function CTA({ lang }: CTAProps) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderRadius: 14,
-                  background: 'linear-gradient(135deg, #0077FF 0%, #3B82F6 100%)',
+                  background: darkMode
+                    ? '#38bdf8'
+                    : 'linear-gradient(135deg, #0077FF 0%, #3B82F6 100%)',
                   padding: '15px 36px',
                   fontSize: '0.95rem',
                   fontWeight: 600,
-                  color: '#ffffff',
+                  color: darkMode ? '#020617' : '#ffffff',
                   textDecoration: 'none',
-                  boxShadow: '0 10px 35px rgba(0,119,255,.35)',
+                  boxShadow: darkMode
+                    ? '0 4px 22px rgba(56,189,248,.3)'
+                    : '0 10px 35px rgba(0,119,255,.35)',
                   transition: 'all .25s ease',
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLElement
                   el.style.transform = 'translateY(-2px)'
-                  el.style.boxShadow = '0 14px 45px rgba(0,119,255,.45)'
+                  el.style.boxShadow = darkMode
+                    ? '0 6px 28px rgba(56,189,248,.4)'
+                    : '0 14px 45px rgba(0,119,255,.45)'
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLElement
                   el.style.transform = 'translateY(0)'
-                  el.style.boxShadow = '0 10px 35px rgba(0,119,255,.35)'
+                  el.style.boxShadow = darkMode
+                    ? '0 4px 22px rgba(56,189,248,.3)'
+                    : '0 10px 35px rgba(0,119,255,.35)'
                 }}
               >
                 {t.primaryButton}
@@ -213,7 +245,7 @@ export default function CTA({ lang }: CTAProps) {
 
               {/* Secondary */}
               <a
-                href="https://wa.me/YOURNUMBER"
+                href="https://wa.me/21693193402"
                 target="_blank"
                 rel="noreferrer"
                 style={{
@@ -222,34 +254,35 @@ export default function CTA({ lang }: CTAProps) {
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderRadius: 14,
-                  border: '1px solid rgba(0,119,255,.25)',
-                  background: 'rgba(255,255,255,.4)',
+                  border: darkMode
+                    ? '1px solid rgba(56,189,248,.3)'
+                    : '1px solid rgba(0,119,255,.25)',
+                  background: darkMode ? 'rgba(56,189,248,.08)' : 'rgba(255,255,255,.4)',
                   backdropFilter: 'blur(8px)',
                   padding: '15px 36px',
                   fontSize: '0.95rem',
                   fontWeight: 600,
-                  color: '#475569',
+                  color: darkMode ? '#38bdf8' : '#475569',
                   textDecoration: 'none',
                   transition: 'all .25s ease',
                 }}
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLElement
                   el.style.transform = 'translateY(-2px)'
-                  el.style.borderColor = 'rgba(0,119,255,.4)'
-                  el.style.background = 'rgba(0,119,255,.08)'
-                  el.style.color = '#1D4ED8'
+                  el.style.borderColor = darkMode ? 'rgba(56,189,248,.5)' : 'rgba(0,119,255,.4)'
+                  el.style.background = darkMode ? 'rgba(56,189,248,.15)' : 'rgba(0,119,255,.08)'
+                  el.style.color = darkMode ? '#38bdf8' : '#1D4ED8'
                 }}
                 onMouseLeave={(e) => {
                   const el = e.currentTarget as HTMLElement
                   el.style.transform = 'translateY(0)'
-                  el.style.borderColor = 'rgba(0,119,255,.25)'
-                  el.style.background = 'rgba(255,255,255,.4)'
-                  el.style.color = '#475569'
+                  el.style.borderColor = darkMode ? 'rgba(56,189,248,.3)' : 'rgba(0,119,255,.25)'
+                  el.style.background = darkMode ? 'rgba(56,189,248,.08)' : 'rgba(255,255,255,.4)'
+                  el.style.color = darkMode ? '#38bdf8' : '#475569'
                 }}
               >
                 {t.secondaryButton}
               </a>
-
             </div>
           </div>
         </div>

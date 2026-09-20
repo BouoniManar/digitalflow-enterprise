@@ -1,193 +1,134 @@
 import { ArrowRight, Briefcase, ClipboardList, BarChart3 } from 'lucide-react'
-
-import heroImage from '../../assets/images/hero.png'
-
-
 import { translations, type Locale } from '../../i18n'
 
 interface HeroProps {
   lang: Locale
+  darkMode: boolean
 }
 
-export default function Hero({ lang }: HeroProps) {
+export default function Hero({ lang, darkMode }: HeroProps) {
   const h = translations[lang].hero
   const isRTL = lang === 'ar'
- 
+
   const icons = [
-  Briefcase,
-  ClipboardList,
-  BarChart3,
-  Briefcase,
-  ClipboardList
-]
+    Briefcase,
+    ClipboardList,
+    BarChart3,
+    Briefcase,
+    ClipboardList,
+  ]
 
   return (
     <section
       id="hero"
       dir={isRTL ? 'rtl' : 'ltr'}
-      className="pt-[100px] pb-[40px] bg-gradient-to-b from-[#BFE0FF] via-[#EAF4FF] to-[#FFFFFF]"
+      className={`
+        pt-[110px] pb-[50px] relative overflow-hidden transition-colors duration-500
+        ${
+          darkMode
+            ? 'bg-slate-950 text-slate-100'
+            : 'bg-[linear-gradient(135deg,#F0F6FF_0%,#E2EFFF_50%,#F8FAFC_100%)] text-slate-900'
+        }
+      `}
     >
-      <div className="max-w-[1650px] mx-auto px-5">
+      {/* ── GRILLE TECH AVEC EFFET PULSATION ── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Lignes de grille tech */}
+        <div
+          className={`
+            absolute inset-0 transition-opacity duration-500
+            ${darkMode ? 'opacity-[0.03] bg-[linear-gradient(to_right,#38bdf8_1px,transparent_1px),linear-gradient(to_bottom,#38bdf8_1px,transparent_1px)]' : 'opacity-[0.07] bg-[linear-gradient(to_right,#005DFF_1px,transparent_1px),linear-gradient(to_bottom,#005DFF_1px,transparent_1px)]'}
+            [background-size:32px_32px]
+          `}
+        />
+        
+        {/* Effet de lueur radiale au centre */}
+        <div
+          className={`
+            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full blur-3xl
+            ${darkMode ? 'bg-gradient-to-r from-sky-500/10 to-blue-600/10' : 'bg-gradient-to-r from-blue-500/10 to-indigo-500/10'}
+          `}
+        />
+      </div>
 
-        {/* ── HERO TOP (UNCHANGED) ── */}
-        <div className="relative rounded-[18px] overflow-hidden h-[420px] mb-10">
+      <div className="max-w-[1650px] mx-auto px-5 relative z-10">
 
-          <img
-            src={heroImage}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+        {/* HERO MAIN BOX */}
+        <div
+          className={`
+            relative
+            rounded-[22px]
+            overflow-hidden
+            min-h-[480px]
+            mb-12
+            flex
+            items-center
+            px-10
+            md:px-16
+            py-16
+            shadow-2xl
+            transition-colors
+            duration-500
+            ${
+              darkMode
+                ? 'bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 border border-slate-800 shadow-blue-950/40'
+                : 'bg-gradient-to-r from-[#003899] via-[#005DFF] to-[#2563EB] shadow-blue-500/20'
+            }
+          `}
+        >
+          {/* Subtle overlay */}
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
 
-          <div className="absolute inset-0 background: 'linear-gradient(to bottom, #BFE0FF, #EAF4FF'," />
+          {/* HERO CONTENT */}
+          <div className="relative z-10 max-w-4xl">
+            <h1
+              className="
+                text-white
+                font-normal
+                text-[40px]
+                md:text-[50px]
+                leading-[1.18]
+                tracking-tight
+                mb-6
+              "
+            >
+              <span className="block font-medium mb-1">
+                {`${h.title1}`}
+              </span>
+              <span className="block text-blue-100 font-light">
+                {`${h.title2} ${h.title3}`}
+              </span>
+            </h1>
 
-    <div
-  className="
-relative
-z-10
-
-h-full
-
-flex
-items-start
-"
->
-<div className="absolute left-20 top-1/2 -translate-y-1/2 flex flex-col items-start gap-4">
-
-<h1
-className="
-text-white
-font-semibold
-text-[47px]
-leading-[1.08]
-tracking-[-0.03em]
-mb-4
-"
->
-
-<span
-className="
-block
-
-whitespace-nowrap
-"
->
-{`${h.title1} ${h.title2}`}
-</span>
-
-<span
-className="
-block
-"
->
-{h.title3}
-</span>
-
-</h1>
-
-<a
-href="#contact"
-className="
-inline-flex
-items-center
-gap-4
-h-[54px]
-px-8
-rounded-[12px]
-bg-[#005DFF]
-text-white
-font-semibold
-hover:bg-[#0048cc]
-transition
-mx-auto
-"
->
-{h.primaryButton}
-
-<ArrowRight size={18} />
-
-</a>
-
-</div>
-</div>
+            <a
+              href="#contact"
+              className={`
+                inline-flex
+                items-center
+                gap-3
+                h-[54px]
+                px-8
+                rounded-[12px]
+                font-medium
+                transition-all
+                duration-300
+                shadow-lg
+                hover:shadow-xl
+                hover:translate-y-[-2px]
+                ${
+                  darkMode
+                    ? 'bg-sky-500 text-slate-950 hover:bg-sky-400'
+                    : 'bg-white text-[#005DFF] hover:bg-blue-50'
+                }
+              `}
+            >
+              <span>{h.primaryButton}</span>
+              <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
         </div>
 
-  <div className="grid grid-cols-12 gap-8 items-center">
-
-  <div className="col-span-12 flex justify-center items-center">
-
-    <div className="grid grid-cols-5 gap-10 w-full max-w-6xl">
-
-      {h.pillars.slice(0, 5).map((item, i) => {
-        const Icon = icons[i]
-
-        return (
-          <div
-            key={i}
-            className="
-              flex
-              flex-col
-              items-center
-              text-center
-
-              gap-3
-
-              group
-
-              transition-all
-              duration-300
-
-              hover:-translate-y-1
-            "
-          >
-
-            {/* icon */}
-            <div className="
-              w-12 h-12
-
-              flex items-center justify-center
-
-              rounded-xl
-
-              bg-[#005DFF]/10
-              text-[#005DFF]
-
-              group-hover:bg-[#005DFF]/15
-
-              transition
-            ">
-              <Icon size={20} />
-            </div>
-
-            {/* text */}
-            <h3 className="
-              text-[16px]
-              font-semibold
-              text-slate-800
-              leading-snug
-            ">
-              {item}
-            </h3>
-
-            {/* underline */}
-            <div className="
-              h-[2px]
-              w-0
-              bg-[#005DFF]
-              group-hover:w-10
-              transition-all
-              duration-300
-              rounded-full
-            " />
-
-          </div>
-        )
-      })}
-
-    </div>
-
-  </div>
-
-</div>
+ 
       </div>
     </section>
   )

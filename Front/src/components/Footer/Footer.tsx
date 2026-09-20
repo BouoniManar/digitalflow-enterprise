@@ -1,191 +1,240 @@
-import logo from '../../assets/images/logo3.png'
-import {
-  Mail,
-  Phone,
-  MessageCircle,
-  MapPin,
-  ArrowUpRight,
-  Globe,
-} from 'lucide-react'
+// FILE: src/components/Footer.tsx
+'use client'
 
-import { translations, type Locale } from '../../i18n'
+import React from 'react';
+import './Footer.css';
+import logo from '../../assets/images/logo.png';
+import { translations } from '../../data/translations';
+import type { Locale } from '../../i18n';
+
 
 interface FooterProps {
-  lang: Locale
+  className?: string;
+  lang?: Locale;
+  darkMode?: boolean;
 }
 
-export default function Footer({ lang }: FooterProps) {
-  const t = translations[lang].footer
-  const isRTL = lang === 'ar'
+const Footer: React.FC<FooterProps> = ({ className = '', lang = 'fr', darkMode = false }) => {
+  const t = translations[lang]?.footer || translations['fr'].footer || {
+    description: "International Consulting & Remote Support. Accompagnement stratégique et solutions technologiques sur mesure pour propulser votre entreprise.",
+    servicesTitle: "Services",
+    navigationTitle: "Navigation",
+    contactTitle: "Contact Us",
+    privacy: "Privacy Policy",
+    terms: "Terms & Conditions"
+  };
+
+  const isRTL = lang === 'ar';
 
   return (
     <footer
       dir={isRTL ? 'rtl' : 'ltr'}
-      className="relative overflow-hidden border-t border-slate-200
-      bg-gradient-to-b from-[#BFE0FF] via-[#EAF4FF] to-[#FFFFFF]"
+      className={`custom-footer ${className}`}
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        background: darkMode
+          ? 'linear-gradient(to bottom, #020617, #090d16)'
+          : 'linear-gradient(180deg, #F8FAFC 0%, #EEF4F8 100%)',
+        borderTop: darkMode
+          ? '1px solid rgba(56,189,248,0.15)'
+          : '1px solid rgba(0,119,255,0.12)',
+        color: darkMode ? '#94A3B8' : '#475569',
+        padding: '80px 24px 30px 24px',
+        transition: 'background 0.5s ease, border-color 0.5s ease, color 0.5s ease',
+      }}
     >
-
-      {/* BACKGROUND GLOWS */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/4 bottom-0 h-[320px] w-[520px] rounded-full bg-blue-100 blur-[120px] opacity-70" />
-        <div className="absolute right-1/4 top-0 h-[240px] w-[340px] rounded-full bg-sky-100 blur-[100px] opacity-70" />
-      </div>
-
-      {/* TOP LINE */}
-      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-300/50 to-transparent" />
-
-      <div className="relative mx-auto max-w-7xl px-6 pb-10 pt-20 lg:pt-24">
-
-        {/* MAIN GRID */}
-        <div className="grid grid-cols-1 gap-14 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.2fr]">
-
-          {/* BRAND */}
-          <div className="flex flex-col gap-6">
-            <a href="#" className="group w-fit">
-              <img
-                src={logo}
-                alt="OPERYX"
-                className="h-40 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-              />
-            </a>
-
-            <p className="max-w-md text-sm leading-relaxed text-slate-600">
-              {t.tagline}
-            </p>
-
-            <div className="inline-flex w-fit items-center gap-2 rounded-full
-              border border-blue-200 bg-blue-50/60 backdrop-blur px-4 py-2 text-xs text-blue-700">
-              <Globe size={13} />
-              {t.international}
+      <div style={{ maxWidth: 1200, margin: '0 auto' }} className="footer-container">
+        
+        {/* Grille principale */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: '40px',
+            marginBottom: '60px',
+          }}
+          className="footer-grid"
+        >
+          {/* Colonne 1 : Logo & Présentation */}
+          <div className="footer-col-logo">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }} className="footer-logo-wrapper">
+              <img src={logo} alt="DigitalFlow Logo" style={{ height: 38, width: 'auto' }} className="footer-logo-img" />
             </div>
+            <p
+              style={{
+                fontSize: '0.92rem',
+                lineHeight: 1.8,
+                color: darkMode ? '#94A3B8' : '#64748B',
+              }}
+              className="footer-description"
+            >
+              {t.description || "International Consulting & Remote Support. Accompagnement stratégique et solutions technologiques sur mesure pour propulser votre entreprise."}
+            </p>
           </div>
 
-          {/* SERVICES */}
-          <div className="flex flex-col gap-5 lg:pt-14">
-            <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-800">
-              {t.services}
-            </h4>
-            <ul className="flex flex-col gap-3">
-              {t.servicesList.map((service, i) => (
-                <li key={i}>
+          {/* Colonne 2 : Nos Services */}
+          <div>
+            <h3
+              style={{
+                fontSize: '1.05rem',
+                fontWeight: 700,
+                color: darkMode ? '#F8FAFC' : '#0F172A',
+                marginBottom: '20px',
+              }}
+              className="footer-title"
+            >
+              {t.servicesTitle || "Services"}
+            </h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }} className="footer-links">
+              {[
+                { name: "Process & Workflow Consulting", href: "#services" },
+                { name: "Business Analysis", href: "#services" },
+                { name: "Digital Transformation", href: "#services" },
+                { name: "Process Optimization", href: "#services" },
+                { name: "Automation Solutions", href: "#services" },
+                { name: "ERP / CRM Systems", href: "#services" },
+              ].map((link, idx) => (
+                <li key={idx}>
                   <a
-                    href="#services"
-                    className="group flex items-center gap-2 text-sm text-slate-600
-                    transition-colors duration-300 hover:text-[#0077FF]"
+                    href={link.href}
+                    style={{
+                      color: darkMode ? '#94A3B8' : '#64748B',
+                      textDecoration: 'none',
+                      fontSize: '0.92rem',
+                      transition: 'color 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = darkMode ? '#38bdf8' : '#0077FF')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = darkMode ? '#94A3B8' : '#64748B')}
+                    className="footer-link"
                   >
-                    <span className="h-1 w-1 rounded-full bg-blue-400 group-hover:bg-[#0077FF]" />
-                    {service}
+                    {link.name}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* COMPANY */}
-          <div className="flex flex-col gap-5 lg:pt-14">
-            <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-800">
-              {t.company}
-            </h4>
-            <ul className="flex flex-col gap-3">
-              {t.companyList.map((item, i) => (
-                <li key={i}>
+          {/* Colonne 3 : Navigation & Liens rapides */}
+          <div>
+            <h3
+              style={{
+                fontSize: '1.05rem',
+                fontWeight: 700,
+                color: darkMode ? '#F8FAFC' : '#0F172A',
+                marginBottom: '20px',
+              }}
+              className="footer-title"
+            >
+              {t.navigationTitle || "Navigation"}
+            </h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px' }} className="footer-links">
+              {[
+                { name: "About Us", href: "#about" },
+                { name: "Services", href: "#services" },
+                { name: "Why DigitalFlow", href: "#why-operyx" },
+                { name: "Contact", href: "#contact" },
+              ].map((link, idx) => (
+                <li key={idx}>
                   <a
-                    href="#"
-                    className="group flex items-center gap-2 text-sm text-slate-600
-                    transition-all duration-300 hover:text-slate-900"
+                    href={link.href}
+                    style={{
+                      color: darkMode ? '#94A3B8' : '#64748B',
+                      textDecoration: 'none',
+                      fontSize: '0.92rem',
+                      transition: 'color 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = darkMode ? '#38bdf8' : '#0077FF')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = darkMode ? '#94A3B8' : '#64748B')}
+                    className="footer-link"
                   >
-                    <ArrowUpRight
-                      size={12}
-                      className="-ml-1 shrink-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-[#0077FF]"
-                    />
-                    {item}
+                    {link.name}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* CONTACT */}
-          <div className="flex flex-col gap-5 lg:pt-6">
-            <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-800">
-              {t.contact}
-            </h4>
-
-            <ul className="flex flex-col gap-4">
-
+          {/* Colonne 4 : Contact & Support */}
+          <div>
+            <h3
+              style={{
+                fontSize: '1.05rem',
+                fontWeight: 700,
+                color: darkMode ? '#F8FAFC' : '#0F172A',
+                marginBottom: '20px',
+              }}
+              className="footer-title"
+            >
+              {t.contactTitle || "Contact Us"}
+            </h3>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '14px' }} className="footer-links">
               <li>
-                <a href="mailto:contact@operyx.com"
-                  className="group flex items-center gap-3 text-sm text-slate-600 hover:text-slate-900">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-200 bg-blue-50/60 backdrop-blur group-hover:bg-blue-100">
-                    <Mail size={14} className="text-[#0077FF]" />
-                  </div>
-                  <span>contact@operyx-consulting.com</span>
+                <a href="mailto:contact@digitalflow.com" style={{ color: darkMode ? '#94A3B8' : '#64748B', textDecoration: 'none', fontSize: '0.92rem', display: 'flex', alignItems: 'center', gap: '8px' }} className="footer-contact-item">
+                  <span>✉️ contact@digitalflow.com</span>
                 </a>
               </li>
-
               <li>
-                <a href="tel:+21654885618"
-                  className="group flex items-center gap-3 text-sm text-slate-600 hover:text-slate-900">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-200 bg-blue-50/60 backdrop-blur group-hover:bg-blue-100">
-                    <Phone size={14} className="text-[#0077FF]" />
-                  </div>
-                  <span>🇹🇳 +216 54 885 618</span>
+                <a href="tel:+21693193402" style={{ color: darkMode ? '#94A3B8' : '#64748B', textDecoration: 'none', fontSize: '0.92rem', display: 'flex', alignItems: 'center', gap: '8px' }} className="footer-contact-item">
+                  <span>📞 +216 93 193 402</span>
                 </a>
               </li>
-
               <li>
-                <a href="tel:+4915228562716"
-                  className="group flex items-center gap-3 text-sm text-slate-600 hover:text-slate-900">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-200 bg-blue-50/60 backdrop-blur group-hover:bg-blue-100">
-                    <Phone size={14} className="text-[#0077FF]" />
-                  </div>
-                  <span>🇩🇪 +49 152 2856 2716</span>
+                <a
+                  href="https://wa.me/21693193402"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '8px 14px',
+                    borderRadius: '8px',
+                    background: darkMode ? 'rgba(56,189,248,0.1)' : 'rgba(0,119,255,0.08)',
+                    color: darkMode ? '#38bdf8' : '#0077FF',
+                    fontWeight: 600,
+                    textDecoration: 'none',
+                    fontSize: '0.88rem',
+                    transition: 'all 0.2s ease',
+                  }}
+                  className="footer-whatsapp"
+                >
+                  <span>💬 WhatsApp Business</span>
                 </a>
               </li>
-
-              <li>
-                <a href="https://wa.me/21628554513"
-                  className="group flex items-center gap-3 text-sm text-slate-600 hover:text-[#25D366]">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-green-200 bg-green-50/40 backdrop-blur group-hover:bg-green-100">
-                    <MessageCircle size={14} className="text-[#25D366]" />
-                  </div>
-                  <span>🇹🇳 WhatsApp +216 28 554 513</span>
-                </a>
-              </li>
-
-              <li>
-                <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-blue-200 bg-blue-50/60 backdrop-blur">
-                    <MapPin size={14} className="text-[#0077FF]" />
-                  </div>
-                  <span>{t.location}</span>
-                </div>
-              </li>
-
             </ul>
           </div>
+
         </div>
 
-        {/* DIVIDER */}
-        <div className="my-8 h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent" />
-
-        {/* BOTTOM BAR */}
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="text-xs text-slate-500">
-            © {new Date().getFullYear()} OPERYX. {t.rights}
-          </p>
-          <div className="flex items-center gap-5">
-            <a href="#" className="text-xs text-slate-500 hover:text-slate-700">
-              {t.legal}
-            </a>
-            <span className="text-slate-300">·</span>
-            <a href="#" className="text-xs text-slate-500 hover:text-slate-700">
-              {t.terms}
-            </a>
+        {/* Ligne de séparation & Bas de page */}
+        <div
+          style={{
+            paddingTop: '30px',
+            borderTop: darkMode
+              ? '1px solid rgba(56,189,248,0.1)'
+              : '1px solid rgba(0,119,255,0.08)',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '16px',
+            fontSize: '0.88rem',
+          }}
+          className="footer-bottom"
+        >
+          <p style={{ margin: 0 }}>© 2026 DigitalFlow. All rights reserved.</p>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="footer-legal-links">
+            <a href="#privacy" style={{ color: darkMode ? '#94A3B8' : '#64748B', textDecoration: 'none' }} className="footer-legal-link">{t.privacy || "Privacy Policy"}</a>
+            <span style={{ color: darkMode ? '#475569' : '#CBD5E1' }} className="footer-dot">·</span>
+            <a href="#terms" style={{ color: darkMode ? '#94A3B8' : '#64748B', textDecoration: 'none' }} className="footer-legal-link">{t.terms || "Terms & Conditions"}</a>
           </div>
         </div>
 
       </div>
     </footer>
-  )
-}
+  );
+};
+
+export default Footer;
